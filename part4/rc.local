@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# rc.local - Alternative script for automatic Git cloning on system startup
+# Place this script in /etc/rc.local or call it from there
+#
+
+# Path to the Git clone script
+GIT_CLONE_SCRIPT="/usr/local/bin/git-clone-devops.sh"
+
+# Log file for rc.local execution
+RC_LOG="/var/log/rc.local.log"
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Executing rc.local Git clone script" >> "$RC_LOG"
+
+# Execute the Git clone script
+if [ -x "$GIT_CLONE_SCRIPT" ]; then
+    bash "$GIT_CLONE_SCRIPT" >> "$RC_LOG" 2>&1
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Git clone script executed successfully" >> "$RC_LOG"
+else
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - ERROR: Git clone script not found or not executable: $GIT_CLONE_SCRIPT" >> "$RC_LOG"
+fi
+
+exit 0

@@ -1,0 +1,16 @@
+[Unit]
+Description=Auto-clone DevOps Midterm Project from Git
+After=network.target
+Wants=network.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/local/bin/git-clone-devops.sh
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

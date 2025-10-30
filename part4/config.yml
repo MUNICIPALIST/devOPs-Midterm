@@ -1,0 +1,55 @@
+app:
+  name: "DevOps Users Database Viewer"
+  version: "1.0.0"
+  environment: "development"  # development, staging, production
+
+server:
+  host: "0.0.0.0"
+  port: 3001
+  timeout: 30000  # milliseconds
+
+database:
+  host: "167.71.42.212"
+  port: 5432
+  name: "devops_lab"
+  user: "postgres"
+  password: "1234"
+  ssl: false
+  max_connections: 10
+  idle_timeout: 30000
+
+logging:
+  level: "info"  # debug, info, warn, error
+  file:
+    path: "/var/log/devops-app/app.log"
+    max_size: "10m"
+    max_files: 5
+  console: true
+
+security:
+  cors:
+    enabled: true
+    origins: ["http://localhost:3001", "http://127.0.0.1:3001"]
+  rate_limiting:
+    enabled: true
+    window_ms: 900000  # 15 minutes
+    max_requests: 100
+
+api:
+  base_path: "/api"
+  users_endpoint: "/api/users"
+  health_endpoint: "/api/health"
+
+static:
+  path: "/static"
+  cache_control: "public, max-age=31536000"
+
+monitoring:
+  health_check_interval: 30000  # milliseconds
+  metrics_enabled: true
+
+git:
+  repository: "https://github.com/MUNICIPALIST/devops-midterm.git"
+  branch: "main"
+  auto_pull: true
+  pull_interval: 3600000  

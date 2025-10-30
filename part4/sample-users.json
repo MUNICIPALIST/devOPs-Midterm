@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "created_at": "2024-01-15T10:30:00Z",
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "created_at": "2024-01-16T14:20:00Z",
+    "status": "active"
+  },
+  {
+    "id": 3,
+    "name": "Bob Johnson",
+    "email": "bob.johnson@example.com",
+    "created_at": "2024-01-17T09:45:00Z",
+    "status": "inactive"
+  },
+  {
+    "id": 4,
+    "name": "Alice Williams",
+    "email": "alice.williams@example.com",
+    "created_at": "2024-01-18T16:30:00Z",
+    "status": "active"
+  },
+  {
+    "id": 5,
+    "name": "Charlie Brown",
+    "email": "charlie.brown@example.com",
+    "created_at": "2024-01-19T11:15:00Z",
+    "status": "active"
+  },
+  {
+    "id": 6,
+    "name": "Diana Prince",
+    "email": "diana.prince@example.com",
+    "created_at": "2024-01-20T13:45:00Z",
+    "status": "active"
+  },
+  {
+    "id": 7,
+    "name": "Edward Norton",
+    "email": "edward.norton@example.com",
+    "created_at": "2024-01-21T08:20:00Z",
+    "status": "inactive"
+  },
+  {
+    "id": 8,
+    "name": "Fiona Green",
+    "email": "fiona.green@example.com",
+    "created_at": "2024-01-22T15:10:00Z",
+    "status": "active"
+  },
+  {
+    "id": 9,
+    "name": "George Miller",
+    "email": "george.miller@example.com",
+    "created_at": "2024-01-23T12:00:00Z",
+    "status": "active"
+  },
+  {
+    "id": 10,
+    "name": "Helen Troy",
+    "email": "helen.troy@example.com",
+    "created_at": "2024-01-24T17:30:00Z",
+    "status": "active"
+  }
+]
