@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users Database Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+        }
+        .error {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+        }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        .refresh-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .refresh-btn:hover {
+            background: #0056b3;
+        }
+        .stats {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Users Database Viewer</h1>
+        <p>Displaying data from PostgreSQL database: devops_lab.users</p>
+
+        <button class="refresh-btn" onclick="loadUsers()">Refresh Data</button>
+
+        <div id="stats" class="stats" style="display: none;"></div>
+
+        <div id="loading" class="loading">Loading users data...</div>
+        <div id="error" class="error" style="display: none;"></div>
+
+        <table id="usersTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody id="usersBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function loadUsers() {
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const table = document.getElementById('usersTable');
+            const stats = document.getElementById('stats');
+
+            // Show loading, hide error
+            loading.style.display = 'block';
+            error.style.display = 'none';
+            stats.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/users');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const users = await response.json();
+
+                // Hide loading
+                loading.style.display = 'none';
+
+                // Show stats
+                stats.innerHTML = `Total users: ${users.length}`;
+                stats.style.display = 'block';
+
+                // Clear existing rows
+                const tbody = document.getElementById('usersBody');
+                tbody.innerHTML = '';
+
+                // Add user rows
+                users.forEach(user => {
+                    const row = tbody.insertRow();
+                    row.insertCell(0).textContent = user.id;
+                    row.insertCell(1).textContent = user.name || '';
+                    row.insertCell(2).textContent = user.email || '';
+                });
+
+            } catch (err) {
+                loading.style.display = 'none';
+                error.style.display = 'block';
+                error.textContent = `Error loading data: ${err.message}`;
+                console.error('Error:', err);
+            }
+        }
+
+        // Load data when page loads
+        window.onload = loadUsers;
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadUsers, 30000);
+    </script>
+</body>
+</html>
